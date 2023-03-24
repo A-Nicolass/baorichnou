@@ -1,5 +1,6 @@
 <script setup>
 import { login, getUserInfo } from "@/services/api.js";
+import { useStore } from "@/stores/store.js";
 </script>
 
 <template>
@@ -32,15 +33,21 @@ export default {
   methods: {
     async submitLogin() {
       try {
+        // Appel à l'API pour se connecter et récupérer le token
         const token = await login(this.email, this.password);
+        // set token to store
+        useStore().setToken(token);
         const userInfo = await getUserInfo(token);
+        useStore().setUserRole(userInfo.roles);
         console.log(token, userInfo);
 
         // Stockez le token et les informations de l'utilisateur dans le store Pinia
         if (userInfo.roles.owner) {
           this.$router.push("/chief");
+          this.$store.setUserRole("owner");
         } else if (userInfo.roles.editor) {
           this.$router.push("/client");
+          this.$store.setUserRole("editor");
         } else {
           // Vous pouvez également gérer d'autres rôles ou un cas d'erreur ici
           this.errorMessage =
