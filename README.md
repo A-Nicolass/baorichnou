@@ -27,3 +27,21 @@ npm run dev
 ```sh
 npm run build
 ```
+
+
+### Commentaire sur le projet
+
+Le projet est interessant c'est cool de lié le back et le front
+
+### Ce qu'il reste a faire
+
+la partie cuisine et la css
+
+### Ce que vous aimeriez ajouter
+
+la partie vitrine du site
+
+### Les problèmes rencontrés
+
+6 lettres : NocoDB
+Pitié du firebase 

@@ -7,6 +7,7 @@ export const useStore = defineStore({
   state: () => ({
     token: null,
     userRole: null,
+    cart: [],
   }),
   getters: {
     getUserRole() {
@@ -15,6 +16,9 @@ export const useStore = defineStore({
     getToken() {
       return this.token;
     },
+    getCart() {
+      return this.cart;
+    },
   },
   actions: {
     setToken(token) {
@@ -22,6 +26,23 @@ export const useStore = defineStore({
     },
     setUserRole(role) {
       this.userRole = role;
+    },
+    addToCart(item) {
+      const existingItem = this.cart.find((product) => product.id === item.id);
+      if (existingItem) {
+        existingItem.quantity += item.quantity;
+      } else {
+        this.cart.push(item);
+      }
+    },
+    removeFromCart(item) {
+      const index = this.cart.findIndex((product) => product.id === item.id);
+      if (index !== -1) {
+        this.cart.splice(index, 1);
+      }
+    },
+    clearCart() {
+      this.cart = [];
     },
   },
 });

@@ -78,3 +78,22 @@ export async function getProducts(token) {
     throw error;
   }
 }
+
+export async function createOrder(token, order) {
+  try {
+    const response = await apiClient.post("/db/data/v1/bao/orders", order, {
+      headers: {
+        "xc-auth": token,
+      },
+    });
+
+    if (response.data) {
+      return response.data;
+    } else {
+      throw new Error("Erreur lors de la création de la commande.");
+    }
+  } catch (error) {
+    console.error("Erreur lors de la création de la commande:", error.message);
+    throw error;
+  }
+}
